@@ -50,6 +50,17 @@ const rssHref = getRelativeLocaleUrl(
       preload={[{ subset: "latin", weight: 400, style: "normal" }]}
     />
 
+    <!-- Chinese font: LXGW WenKai (霞鹜文楷) -->
+    <link
+      rel="preconnect"
+      href="https://cdn.jsdelivr.net"
+      crossorigin
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css"
+      rel="stylesheet"
+    />
+
     <!-- Primary meta -->
     <title>{title}</title>
     <meta name="title" content={title} />
