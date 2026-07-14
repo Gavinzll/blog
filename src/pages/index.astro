@@ -55,6 +55,13 @@ const homePath = getRelativeLocaleUrl(locale, "");
       <p>
         Hello, everyone! Welcome to my personal blog.
       </p>
+      <blockquote
+        id="daily-quote"
+        class="mt-4 border-s-accent/80 ps-4 text-sm italic opacity-80"
+      >
+        <p id="quote-text">Loading...</p>
+        <footer id="quote-author" class="mt-1 text-xs not-italic opacity-60"></footer>
+      </blockquote>
       <p class="mt-2">
         In this blog, I will be writing about my projects (what I do/how I did),
         my personal experiences, and some random stuffs.
@@ -133,6 +140,38 @@ const homePath = getRelativeLocaleUrl(locale, "");
     const baseRoot = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     if (indexLayout?.layout) {
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
+    }
+
+    // Rotating inspirational quotes
+    const quotes = [
+      { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+      { text: "Code is like humor. When you have to explain it, it's bad.", author: "Cory House" },
+      { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
+      { text: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+      { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+      { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+      { text: "Programs must be written for people to read, and only incidentally for machines to execute.", author: "Harold Abelson" },
+      { text: "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.", author: "Martin Fowler" },
+      { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+      { text: "Make it work, make it right, make it fast.", author: "Kent Beck" },
+      { text: "The best error message is the one that never shows up.", author: "Thomas Fuchs" },
+      { text: "Walking on water and developing software from a specification are easy if both are frozen.", author: "Edward V. Berard" },
+      { text: "Done is better than perfect.", author: "Sheryl Sandberg" },
+      { text: "The function of good software is to make the complex appear simple.", author: "Grady Booch" },
+      { text: "Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.", author: "Patrick McKenzie" },
+      { text: "写代码就像写作文，重要的不是华丽的辞藻，而是清晰的逻辑。", author: "佚名" },
+      { text: "代码是写给人看的，只是恰好能被机器执行。", author: "Harold Abelson" },
+      { text: "保持饥饿，保持愚蠢。", author: "Steve Jobs" },
+      { text: "简单是可靠的先决条件。", author: "Edsger Dijkstra" },
+      { text: "不要过早优化，先让它跑起来。", author: "Kent Beck" },
+    ];
+
+    const quoteEl = document.getElementById("quote-text");
+    const authorEl = document.getElementById("quote-author");
+    if (quoteEl && authorEl) {
+      const quote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteEl.textContent = `"${quote.text}"`;
+      authorEl.textContent = `— ${quote.author}`;
     }
   });
 </script>

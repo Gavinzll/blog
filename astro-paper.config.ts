@@ -30,7 +30,7 @@ export default defineAstroPaperConfig({
   },
   socials: [
     { name: "github", url: "https://github.com/Gavinzll" },
-    { name: "mail",   url: "mailto:gavin@example.com" },
+    { name: "mail",   url: "mailto:gavenaazll@gmail.com" },
   ],
   shareLinks: [
     { name: "whatsapp", url: "https://wa.me/?text=" },

@@ -10,25 +10,25 @@
   --font-app: var(--font-google-sans-code);
 }
 
-/* Light theme values */
+/* Light theme values — inspired by satnaing.dev/blog */
 :root,
 [data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
+  --background: #f9fafb;
+  --foreground: #1d2a35;
+  --accent: #007a7a;
   --accent-foreground: #ffffff;
-  --muted: #e6e6e6;
+  --muted: #eff3f3;
   --muted-foreground: #6b7280;
-  --border: #ece9e9;
+  --border: #e5e7eb;
 }
 
-/* Dark theme values */
+/* Dark theme values — inspired by satnaing.dev/blog */
 [data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --accent-foreground: #ffffff;
-  --muted: #343f60;
-  --muted-foreground: #afb9ca;
-  --border: #ab4b08;
+  --background: #1d2a35;
+  --foreground: #f9fafb;
+  --accent: #05ce91;
+  --accent-foreground: #1d2a35;
+  --muted: #22323f;
+  --muted-foreground: #8b9bb0;
+  --border: #2d3e4d;
 }

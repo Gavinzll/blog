@@ -1,0 +1,96 @@
+---
+author: Gavin
+pubDatetime: 2026-07-14T22:30:00+08:00
+title: 中文字体筛选指南 — 为博客寻找最匹配的中文字体
+slug: chinese-font-selection-guide
+featured: true
+draft: false
+tags:
+  - design
+  - typography
+  - chinese-fonts
+description: "对比 8 款中文字体在本博客中的渲染效果，从思源黑体到霞鹜文楷，帮你找到最适合的中文字体。"
+---
+
+import FontShowcase from '@/components/FontShowcase.astro';
+
+> 本文加载了 8 款中文 Web 字体，你可以在下方直接对比每种字体的渲染效果。刷新页面不会影响字体加载——所有字体同时展示，方便你一目了然地做决定。
+
+## Table of contents
+
+## 为什么需要认真选择中文字体
+
+英文博客用一套 Google Sans / Jost / Inter 就能搞定，但中文不同——中文字体动辄数 MB，字体选择直接影响：
+
+- **阅读体验**：正文需要清晰、不疲劳
+- **加载速度**：中文字体文件大，必须权衡
+- **风格一致性**：中英混排时两种字体要和谐共存
+- **辨识度**：好字体会让你的博客有独特气质
+
+下面我挑选了 8 款风格各异、可通过 CDN 加载的中文字体，用相同的文字内容进行对比。
+
+## 测试样本
+
+以下每个字体区块都展示同一段文字，方便横向对比：
+
+> 在这个数字化的时代，每个人都有自己的博客角落。这里记录着代码与思考，也藏着生活的碎片。字体不仅仅是文字的外衣，它是阅读体验的灵魂。一段好的文字，配上合适的字体，就像一首曲子找到了它的乐器。We also mix in some English to test 中英混排的效果——this is very common in 技术博客。
+
+## 字体对比
+
+<FontShowcase />
+
+## 如何选择
+
+### 如果你看重阅读舒适度
+
+**LXGW WenKai（霞鹜文楷）** 是最佳选择。它的字形源自 FONTWORKS 的 Klee One，带有手写楷书的温暖感，长时间阅读不疲劳，特别适合博客正文。中英混排时，英文字符也有衬线风格，整体协调。
+
+### 如果你追求现代极简
+
+**Noto Sans SC（思源黑体）** 是不会出错的选择。它就是中文世界的 Inter——干净、中性、专业。和大多数英文 sans-serif 字体都能和谐搭配，加载速度也最快（Google Fonts 有完善的 unicode-range 分包）。
+
+### 如果你喜欢文艺气质
+
+**Noto Serif SC（思源宋体）** 带有传统印刷的质感，适合文学、随笔类内容。但注意宋体在小字号下的屏幕可读性略逊于黑体。
+
+### 如果你想与众不同
+
+**ZCOOL XiaoWei（站酷小薇）** 笔画纤细优雅，适合标题；**Smiley Sans（得意黑）** 几何感强，有现代设计感。但这两款作为正文长时间阅读可能不够舒适。
+
+### 关于加载性能
+
+| 字体 | 来源 | 文件大小（估） | 适用场景 |
+|------|------|----------------|----------|
+| Noto Sans SC | Google Fonts | ~4MB（分包加载） | 正文、UI |
+| Noto Serif SC | Google Fonts | ~4MB（分包加载） | 正文、标题 |
+| LXGW WenKai | jsDelivr CDN | ~8MB（分包加载） | 正文、标题 |
+| ZCOOL XiaoWei | Google Fonts | ~2MB | 标题、装饰 |
+| ZCOOL QingKe HuangYou | Google Fonts | ~2MB | 大标题、海报 |
+| Ma Shan Zheng | Google Fonts | ~1MB | 装饰、引用 |
+| Long Cang | Google Fonts | ~1MB | 手写效果 |
+| Liu Jian Mao Cao | Google Fonts | ~1MB | 装饰 |
+
+> **注意**：Google Fonts 对中文字体使用了 unicode-range 分包技术，浏览器只会下载页面用到的字符子集，实际传输量远小于完整字体文件。
+
+## 我的建议
+
+对于这个博客，我的推荐优先级：
+
+1. **LXGW WenKai** — 温暖、文艺、阅读舒适度最高
+2. **Noto Sans SC** — 安全、专业、加载最快
+3. **Noto Serif SC** — 适合偏文学性的内容
+
+你可以看下方的实际效果，然后告诉我你的选择。我会把选定的字体配置到网站的 CSS 中，让所有中文内容自动使用该字体。
+
+## 互动选择
+
+看完上面的对比后，你可以：
+
+1. **直接告诉我**你最喜欢的字体编号或名称
+2. 我会将该字体集成到 `astro.config.ts` 和 `theme.css` 中
+3. 后续所有中文内容（博文、关于页面等）都会自动使用你选的字体
+4. 英文内容继续使用现有的 Google Sans Code 字体
+
+---
+
+> 字体选择没有对错，只有适合不适合。选一个让你每次打开博客都觉得「嗯，就是这个感觉」的字体就好。
