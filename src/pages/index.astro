@@ -129,36 +129,59 @@ const homePath = getRelativeLocaleUrl(locale, "");
       sessionStorage.setItem("backUrl", indexLayout.homePath ?? baseRoot);
     }
 
-    // Rotating Chinese inspirational quotes
-    const quotes = [
-      { text: "代码是写给人看的，只是恰好能被机器执行。", author: "Harold Abelson" },
-      { text: "保持饥饿，保持愚蠢。", author: "Steve Jobs" },
-      { text: "简单是可靠的先决条件。", author: "Edsger Dijkstra" },
-      { text: "千里之行，始于足下。", author: "老子" },
-      { text: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
-      { text: "不积跬步，无以至千里；不积小流，无以成江海。", author: "荀子" },
-      { text: "纸上得来终觉浅，绝知此事要躬行。", author: "陆游" },
-      { text: "知之为知之，不知为不知，是知也。", author: "孔子" },
-      { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
-      { text: "博观而约取，厚积而薄发。", author: "苏轼" },
-      { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
-      { text: "工欲善其事，必先利其器。", author: "孔子" },
-      { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
-      { text: "山重水复疑无路，柳暗花明又一村。", author: "陆游" },
-      { text: "海内存知己，天涯若比邻。", author: "王勃" },
-      { text: "Done is better than perfect.", author: "Sheryl Sandberg" },
-      { text: "长风破浪会有时，直挂云帆济沧海。", author: "李白" },
-      { text: "Make it work, make it right, make it fast.", author: "Kent Beck" },
-      { text: "敏而好学，不耻下问。", author: "孔子" },
-      { text: "少年易老学难成，一寸光阴不可轻。", author: "朱熹" },
-    ];
-
+    // 一言 API: https://hitokoto.cn
+    // 每次首页加载 fetch 一次,同会话 sessionStorage 缓存(避免站内 SPA 切换名言闪)
+    // 浏览器/标签页关闭再打开 → 新的一句
     const quoteEl = document.getElementById("quote-text");
     const authorEl = document.getElementById("quote-author");
-    if (quoteEl && authorEl) {
-      const quote = quotes[Math.floor(Math.random() * quotes.length)];
-      quoteEl.textContent = `"${quote.text}"`;
-      authorEl.textContent = `— ${quote.author}`;
+    if (!quoteEl || !authorEl) return;
+
+    // 后备名言(API 失败时随机选 1 条)
+    const fallbackQuotes = [
+      { text: "代码是写给人看的，只是恰好能被机器执行。", author: "Harold Abelson" },
+      { text: "保持饥饿，保持愚蠢。", author: "Steve Jobs" },
+      { text: "Talk is cheap. Show me the code.", author: "Linus Torvalds" },
+      { text: "千里之行，始于足下。", author: "老子" },
+      { text: "The best way to predict the future is to invent it.", author: "Alan Kay" },
+    ];
+
+    function setQuote(text: string, author: string) {
+      quoteEl!.textContent = `"${text}"`;
+      authorEl!.textContent = `— ${author || "匿名"}`;
     }
+
+    const CACHE_KEY = "hitokoto:cache:v1";
+
+    // 1) 先看 sessionStorage 有没有(同会话内不重复请求)
+    const cached = sessionStorage.getItem(CACHE_KEY);
+    if (cached) {
+      try {
+        const data = JSON.parse(cached);
+        setQuote(data.hitokoto, data.from_who || data.from || "");
+        return;
+      } catch (e) {
+        // 缓存坏了,继续 fetch
+      }
+    }
+
+    // 2) 没缓存 → fetch 一言 API
+    // c= 不传 → 全部类型随机;b 哲学 / d 文学 / i 互联网 / k 梗
+    // 不限定类型,每次都不一样
+    const url = "https://v1.hitokoto.cn/?encode=json&ts=" + Date.now();
+    fetch(url, { method: "GET" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data && data.hitokoto) {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify(data));
+          setQuote(data.hitokoto, data.from_who || data.from || "");
+        } else {
+          throw new Error("empty response");
+        }
+      })
+      .catch(() => {
+        // API 失败 → 随机选一条后备
+        const f = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+        setQuote(f.text, f.author);
+      });
   });
 </script>
