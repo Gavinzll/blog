@@ -13,24 +13,11 @@
     }
 
     h3 {
-      @apply mb-3 text-foreground italic;
+      @apply mb-3 text-foreground/70;
     }
 
     h4 {
       @apply mb-3 text-muted-foreground;
-    }
-
-    /* Hide heading anchor # on both desktop and mobile.
-       rehype-autolink-headings appends a link to every heading;
-       its default opacity-0 group-hover:opacity-100 only works on
-       hover-capable devices, so # stays visible on mobile. */
-    h1 a.anchor-link,
-    h2 a.anchor-link,
-    h3 a.anchor-link,
-    h4 a.anchor-link,
-    h5 a.anchor-link,
-    h6 a.anchor-link {
-      @apply hidden;
     }
 
     p,
