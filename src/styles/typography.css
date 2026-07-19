@@ -8,16 +8,27 @@
       @apply mb-3 text-foreground;
     }
 
+    /* H2 = 全饱和 accent 绿(主色) */
     h2 {
       @apply mb-3 text-accent;
     }
 
+    /* H3 = accent 70%(浅色)/ 75%(深色) + 背景 = 中绿 */
     h3 {
-      @apply mb-3 text-foreground/70;
+      @apply mb-3;
+      color: color-mix(in srgb, var(--accent) 70%, var(--background));
+    }
+    .dark h3 {
+      color: color-mix(in srgb, var(--accent) 75%, var(--background));
     }
 
+    /* H4 = accent 50%(浅色)/ 55%(深色) + 背景 = 浅绿 */
     h4 {
-      @apply mb-3 text-muted-foreground;
+      @apply mb-3;
+      color: color-mix(in srgb, var(--accent) 50%, var(--background));
+    }
+    .dark h4 {
+      color: color-mix(in srgb, var(--accent) 55%, var(--background));
     }
 
     p,
